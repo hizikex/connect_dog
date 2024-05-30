@@ -24,6 +24,10 @@ const userSchema = new Schema({
         required: true,
         enum: ['male', 'female']
       },
+    phoneNumber: {
+        type: String,
+        required: [true, 'Phone number is required']
+    }
 },
 {
     timestamps: true

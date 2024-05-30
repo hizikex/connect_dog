@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const registerUser = async (req, res) => {
   try {
-    const { fullname, email, password, gender } = req.body;
+    const { fullname, email, password, gender, phoneNumber } = req.body;
     const user = await User.findOne({ email: email });
 
     if (user)
@@ -21,6 +21,7 @@ export const registerUser = async (req, res) => {
       password: hashPassword,
       username: email.split("@")[0],
       gender,
+      phoneNumber
     });
 
     await newUser.save();

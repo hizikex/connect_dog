@@ -2,24 +2,23 @@ import { Schema, model } from "mongoose";
 
 const interactionSchema = new Schema(
   {
-    sender: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User reference is required"],
-    },
-    recipient: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User reference is required"],
-    },
-    dog:{
+    senderDogId:{
         type: Schema.Types.ObjectId,
         ref: "Dog",
-        required: [true, "User reference is required"],
+        required: [true, "Dog reference is required"],
+    },
+    recipientDogId:{
+        type: Schema.Types.ObjectId,
+        ref: "Dog",
+        required: [true, "Dog reference is required"],
     },
     message: {
         type: String,
         required: [true, 'Password is required']
+    },
+    InteractionStatus: {
+        type: Boolean,
+        default: false
     }
   },
   {
@@ -27,6 +26,6 @@ const interactionSchema = new Schema(
   }
 );
 
-const Dog = model("Interaction", interactionSchema);
+const Interaction = model("interactions", interactionSchema);
 
 export default Interaction;

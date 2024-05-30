@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import User from './user.js';
 
 const dogSchema = new Schema({
   name: {
@@ -29,7 +30,7 @@ const dogSchema = new Schema({
   },
   ownerId: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: User,
     required: [true, 'User reference is required'],
   },
   bio: {
@@ -58,6 +59,6 @@ const dogSchema = new Schema({
   timestamps: true
 });
 
-const Dog = model('Dog', dogSchema);
+const Dog = model('dogs', dogSchema);
 
 export default Dog;

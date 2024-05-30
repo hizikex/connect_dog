@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 export const registerUser = async (req, res) => {
   try {
     const { fullname, email, password, gender, phoneNumber } = req.body;
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email });
 
     if (user)
       return res.status(404).json({
@@ -40,7 +40,9 @@ export const registerUser = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ email });
+
+    console.log(email, password);
 
     if (!user)
       return res.status(404).json({
@@ -80,7 +82,7 @@ export const login = async (req, res) => {
 export const findUser = async (req, res) => {
   try {
     const { username } = req.params;
-    const user = await User.findOne({username: username});
+    const user = await User.findOne({username: username });
   
     if (!user) {
       return res.status(404).json({

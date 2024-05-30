@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user";
+import User from "../models/user.js";
 
-const authenticate = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
     try {
        const hasAuthorization = req.headers.authorization;
        
@@ -34,5 +34,3 @@ const authenticate = async (req, res, next) => {
         });
     }
 };
-
-module.exports = { authenticate }

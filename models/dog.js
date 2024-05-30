@@ -1,10 +1,16 @@
 import { Schema, model } from 'mongoose';
 
-const dogSchema = new mongoose.Schema({
+const dogSchema = new Schema({
   name: {
     type: String,
     required: [true, 'Dog name is required'],
     trim: true
+  },
+  uniqueName: {
+    type: String,
+    required: [true, 'Dog name is required'],
+    trim: true,
+    unique: [true, 'Name aready taken']
   },
   age: {
     type: Number,
@@ -19,9 +25,9 @@ const dogSchema = new mongoose.Schema({
   gender: {
     type: String,
     required: true,
-    enum: ['Male', 'Female']
+    enum: ['male', 'female']
   },
-  ownerName: {
+  ownerId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: [true, 'User reference is required'],
@@ -54,4 +60,4 @@ const dogSchema = new mongoose.Schema({
 
 const Dog = model('Dog', dogSchema);
 
-module.exports = Dog;
+export default Dog;

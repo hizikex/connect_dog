@@ -54,7 +54,7 @@ export const login = async (req, res) => {
       });
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id, name: user.name, email: user.email, username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
@@ -69,6 +69,27 @@ export const login = async (req, res) => {
       message: "Login successfully",
       data: result,
     });
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const findUser = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({username: username});
+  
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found'
+      })
+    }
+  
+    return res.status(200).json({
+      message: `Hi ${user.fullname.split(' ')[0]}`
+    })
   } catch (error) {
     return res.status(500).json({
       message: error.message,

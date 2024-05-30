@@ -46,3 +46,36 @@ export const registerDog = async (req, res) => {
           });
     }
 };
+
+
+export const findDogByUniqueName = async (req, res) => {
+    try {
+      const { uniqueName } = req.params;
+      const dog = await Dog.findOne({uniqueName: uniqueName});
+
+      if (!dog) {
+        return res.status(404).json({
+          message: 'Dog not found'
+        })
+      }
+  
+      return res.status(200).json({
+        message: `Hi ${dog.uniqueName}`,
+        data: dog
+      })
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  };
+  
+  export const findDogs = async (req, res) => {
+    const allDogs = await Dog.find();
+  
+    res.status(200).json({
+      message: 'All dog owners',
+      data: allDogs
+    });
+  };
+  

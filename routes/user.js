@@ -1,5 +1,5 @@
 import express from "express";
-import { findUser, login, registerUser } from "../controller/user.js";
+import { findOwners, findUser, login, registerUser } from "../controller/user.js";
 
 const Route = express.Router();
 
@@ -9,6 +9,7 @@ Route.get("/", (req, res) => {
 
   Route.post('/register', registerUser);
   Route.post('/login', login);
-  Route.post('/:username', findUser);
+  Route.get('/:username', findUser);
+  Route.get('/', findOwners);
   
 export default Route;

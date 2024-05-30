@@ -86,13 +86,23 @@ export const findUser = async (req, res) => {
         message: 'User not found'
       })
     }
-  
+
     return res.status(200).json({
-      message: `Hi ${user.fullname.split(' ')[0]}`
+      message: `Hi ${user.fullname.split(' ')[0]}`,
+      data: user
     })
   } catch (error) {
     return res.status(500).json({
       message: error.message,
     });
   }
+};
+
+export const findOwners = async (req, res) => {
+  const allOwners = await User.find();
+
+  res.status(200).json({
+    message: 'All dog owners',
+    data: allOwners
+  });
 };

@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import sendEmail from '../utils/nodemailer.js';
 
 export const registerUser = async (req, res) => {
   try {
@@ -25,6 +26,14 @@ export const registerUser = async (req, res) => {
     });
 
     await newUser.save();
+
+    const message = `Your registration on DOG CONNECT was successful`;
+
+    sendEmail({
+      email: newUser.email,
+      subject: "Account creation sucess",
+      message
+    });
 
     return res.status(201).json({
       message: `${fullname} has successfully registered`,

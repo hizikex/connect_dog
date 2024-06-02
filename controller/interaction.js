@@ -35,7 +35,7 @@ export const ownerInteraction = async (req, res) => {
   const interaction = await Interaction.create({
     senderDogId: senderDog.id,
     recipientDogId: recipientDog.id,
-    message: `${senderDog.ownerId} interact with ${recipientDog.ownerId} regarding ${senderDog.uniqueName}`,
+    message: `${senderDog.ownerId} interacted with ${recipientDog.ownerId} regarding ${senderDog.uniqueName}`,
     InteractionStatus: true
   });
 

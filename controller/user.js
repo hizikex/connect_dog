@@ -113,6 +113,12 @@ export const findUser = async (req, res) => {
 export const findOwners = async (req, res) => {
   const allOwners = await User.find();
 
+  if (allOwners.length === 0) {
+    return res.status(404).json({
+      message: 'No owner found'
+    })
+  }
+
   res.status(200).json({
     message: 'All dog owners',
     data: allOwners

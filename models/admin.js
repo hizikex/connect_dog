@@ -17,7 +17,7 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: [true, 'Email is required'],
-        unique: true,
+        unique: true
     },
     gender: {
         type: String,

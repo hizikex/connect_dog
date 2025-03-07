@@ -2,10 +2,13 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendEmail from '../utils/nodemailer.js';
+import { validate } from '../helpers/utilities.js';
+import { registerUserSchema } from '../validation/user.js';
 
 export const registerUser = async (req, res) => {
   try {
-    const { fullname, email, password, gender, phoneNumber } = req.body;
+    const validatedData = await validate(req.body, registerUserSchema);
+    const { fullname, email, password, gender, phoneNumber } = validatedData;
     const user = await User.findOne({ email });
 
     if (user)
@@ -13,7 +16,7 @@ export const registerUser = async (req, res) => {
         message: "User with email already exist",
       });
 
-    const saltPassword = bcrypt.genSaltSync(10);
+    const saltPassword =  bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, saltPassword);
 
     const newUser = new User({

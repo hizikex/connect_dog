@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendEmail from '../utils/nodemailer.js';
 import { validate } from '../helpers/utilities.js';
-import { registerUserSchema } from '../validation/user.js';
+import { registerUserSchema, loginSchema } from '../validation/user.js';
 
 export const registerUser = async (req, res) => {
   try {
@@ -16,7 +16,7 @@ export const registerUser = async (req, res) => {
         message: "User with email already exist",
       });
 
-    const saltPassword =  bcrypt.genSaltSync(10);
+    const saltPassword = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(password, saltPassword);
 
     const newUser = new User({
@@ -51,7 +51,8 @@ export const registerUser = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const validatedData = await validate(req.body, loginSchema);
+    const { email, password } = validatedData;
     const user = await User.findOne({ email });
 
     console.log(email, password);
@@ -94,8 +95,8 @@ export const login = async (req, res) => {
 export const findUser = async (req, res) => {
   try {
     const { username } = req.params;
-    const user = await User.findOne({username: username });
-  
+    const user = await User.findOne({ username: username });
+
     if (!user) {
       return res.status(404).json({
         message: 'User not found'

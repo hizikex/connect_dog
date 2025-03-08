@@ -4,7 +4,6 @@ import User from "../models/user.js";
 export const authenticate = async (req, res, next) => {
     try {
        const hasAuthorization = req.headers.authorization;
-       
        if (!hasAuthorization) {
         return res.status(400).json({
             message: "Authorization token not found"
@@ -13,7 +12,6 @@ export const authenticate = async (req, res, next) => {
 
        const token = hasAuthorization.split(' ') [1];
        const decodedToken = jwt.verify(token, "secretKey");
-
        const user = await User.findById(decodedToken.id);
 
        if (!user) {
@@ -24,7 +22,7 @@ export const authenticate = async (req, res, next) => {
        req.user = decodedToken;
        next();
     } catch (error) {
-        if (error instanceof jwt.JsonWebTokenError) {
+        if (error instanceof jwt.JsonWebTokenError) {            
             return res.json({
                 message: "Session Timeout"
             })

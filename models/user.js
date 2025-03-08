@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose';
 const userSchema = new Schema({
     fullname: {
         type: String,
-        required: [true, 'FirstName is required']
+        required: [true, 'Fullname is required']
     },
     email: {
         type: String,
@@ -16,7 +16,7 @@ const userSchema = new Schema({
     },
     username: {
         type: String,
-        required: [true, 'Email is required'],
+        required: [true, 'Userna is required'],
         unique: true,
     },
     gender: {

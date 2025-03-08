@@ -6,7 +6,7 @@ const Route = express.Router();
 
   Route.post('/register', registerUser);
   Route.post('/login', login);
-  Route.get('/:username', authenticate, findUser);
+  Route.get('/', authenticate, findUser);
   Route.get('/', authenticate, findOwners);
   
 export default Route;
